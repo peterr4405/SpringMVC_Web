@@ -21,7 +21,7 @@ import stock.orm.model.Trader;
 
 @Controller
 @RequestMapping("/stock_controller")
-public class StockrController {
+public class StockController {
 
     private IStockDao stockDao;
     private IFundDao fundDao;
