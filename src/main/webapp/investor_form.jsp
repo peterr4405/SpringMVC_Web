@@ -78,7 +78,7 @@
                         console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
                         var markup = '';
                         $.each(data, function (i, investor) {
-                            markup += '<tr><td>{0}</td><td style="cursor:hand">{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>'
+                            markup += '<tr><td>{0}</td><td style="cursor:hand" title="點兩下">{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>'
                                     .format(investor.investorId, investor.name, investor.units, investor.netValue, investor.fund.name);
                         });
                         $('#investorTbody').empty();
