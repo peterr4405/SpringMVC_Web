@@ -12,7 +12,6 @@
         <script>
             google.charts.load('current', {'packages': ['corechart']});
             function drawChart(data, title) {
-
                 var options = {
                     title: title,
                     vAxis: {title: 'Price'},
@@ -29,7 +28,6 @@
                 var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
                 chart.draw(data, options);
             }
-
             function pushData(data) {
                 var dataArray = [];
                 $.each(data, function (i, s) {
@@ -44,8 +42,6 @@
                 var drawData = google.visualization.arrayToDataTable(dataArray, true);
                 drawChart(drawData, data[0].symbol);
             }
-
-
             function getStockHistQuotes(symbol) {
                 $.ajax({
                     url: './mvc/yahoo_controller/get/stock/' + symbol,
@@ -59,15 +55,12 @@
                     }
                 });
             }
-
             String.prototype.format = function () {
                 var args = arguments;
                 return this.replace(/\{(\d+)\}/g, function (m, i, o, n) {
                     return args[i];
                 });
             };
-
-
             function query() {
                 $.ajax({
                     url: './mvc/stock_controller/query/stock',
@@ -87,7 +80,6 @@
                     }
                 });
             }
-
             function add() {
                 console.log($('#stock_form').serialize());
                 $.ajax({
@@ -102,7 +94,6 @@
                     }
                 });
             }
-
             function getById(id) {
                 $.ajax({
                     url: './mvc/stock_controller/get/stock/' + id,
@@ -118,15 +109,14 @@
                     }
                 });
             }
-
             function update() {
-                console.log($('stock_form').serialize());
-                var id = $('stock_form').find('input [name="stockId"]').val();
+                console.log($('#stock_form').serialize());
+                var id = $('#stock_form').find('input[name="stockId"]').val();
                 console.log(id);
                 $.ajax({
                     url: './mvc/stock_controller/update/stock/' + id,
                     type: 'POST',
-                    data: $('#stock_form').serialize,
+                    data: $('#stock_form').serialize(),
                     success: function (data, status) {
                         console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
                         query();
@@ -134,10 +124,8 @@
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(jqXHR);
                     }
-
                 });
             }
-
             function deleteById(id) {
                 $.ajax({
                     url: './mvc/stock_controller/delete/stock/' + id,
@@ -151,46 +139,37 @@
                     }
                 });
             }
-
             $(document).ready(function () {
-
                 $('#query_button').click(function () {
                     query();
                 });
-
                 $('#post_button').click(function () {
                     add();
                 });
-
-                $('#put_button').click(function () {
+                $('#update_button').click(function () {
                     update();
                 });
-
                 $('#delete_button').click(function () {
                     var id = $('#stock_form').find('input[name="stockId"]').val();
                     console.log(id);
                     deleteById(id);
                 });
-
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
                     var id = $(this).text();
                     console.log(id);
                     getById(id);
                 });
-
                 $("#stockTbody").on('dblclick', 'td:nth-child(2)', function () {
                     var symbol = $(this).text();
                     console.log(symbol);
                     getStockHistQuotes(symbol);
                 });
-
                 $('#fund_span').on('click', function () {
                     window.location.href = 'fund_form.jsp';
                 });
                 $('#investor_span').on('click', function () {
                     window.location.href = 'investor_form.jsp';
                 });
-
             });
         </script>
     </head>
